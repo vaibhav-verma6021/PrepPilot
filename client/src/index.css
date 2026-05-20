@@ -1,0 +1,113 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ─── Static brand tokens (compile-time) ─── */
+@theme {
+  --color-brand:      #00d4aa;
+  --color-brand-dark: #00b894;
+  --color-hazard:     #ef4444;
+  --color-success:    #22c55e;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'system-ui', sans-serif;
+
+  --radius-card: 14px;
+  --radius-btn:  9px;
+}
+
+/* ─── Dark-mode variant (data-theme="dark") ─── */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* ─────────────────────────────────────────────────────────────
+   Runtime CSS Design Tokens
+   Default = dark navy. [data-theme='light'] = light blue-white.
+───────────────────────────────────────────────────────────── */
+
+/* Default + explicit dark: dark navy + mint */
+:root,
+[data-theme='dark'] {
+  --bg:             #0f1729;
+  --surface:        #162040;
+  --surface-alt:    #1a2a4a;
+  --sidebar-bg:     #0a1020;
+  --border:         #1e3a5f;
+  --border-light:   #243a5e;
+  --text:           #ffffff;
+  --text-secondary: #c8daea;
+  --muted:          #8baac8;
+  --input-bg:       #162040;
+  --accent-dim:     rgba(0, 212, 170, 0.12);
+  --danger-dim:     rgba(239, 68, 68, 0.10);
+
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.35);
+  --shadow-md: 0 2px 6px rgba(0,0,0,0.45), 0 8px 24px rgba(0,0,0,0.40);
+  --shadow-lg: 0 8px 16px rgba(0,0,0,0.5), 0 24px 48px rgba(0,0,0,0.55);
+}
+
+/* Light mode: soft blue-white */
+[data-theme='light'] {
+  --bg:             #f0f8ff;
+  --surface:        #ffffff;
+  --surface-alt:    #eef5fc;
+  --sidebar-bg:     #1a237e;
+  --border:         #c3d9ef;
+  --border-light:   #ddeaf7;
+  --text:           #0a1929;
+  --text-secondary: #2d5073;
+  --muted:          #607d99;
+  --input-bg:       #ffffff;
+  --accent-dim:     rgba(0, 184, 148, 0.12);
+  --danger-dim:     rgba(239, 68, 68, 0.08);
+
+  --shadow-xs: 0 1px 2px rgba(10,25,41,0.06);
+  --shadow-sm: 0 1px 3px rgba(10,25,41,0.06), 0 4px 12px rgba(10,25,41,0.06);
+  --shadow-md: 0 2px 6px rgba(10,25,41,0.07), 0 8px 24px rgba(10,25,41,0.08);
+  --shadow-lg: 0 8px 16px rgba(10,25,41,0.09), 0 24px 48px rgba(10,25,41,0.12);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Custom Tailwind utilities (dynamic — reference CSS vars)
+───────────────────────────────────────────────────────────── */
+@utility bg-canvas      { background-color: var(--bg); }
+@utility bg-surface     { background-color: var(--surface); }
+@utility bg-surface-alt { background-color: var(--surface-alt); }
+@utility bg-sidebar     { background-color: var(--sidebar-bg); }
+@utility bg-field       { background-color: var(--input-bg); }
+@utility bg-brand-dim   { background-color: var(--accent-dim); }
+@utility bg-hazard-dim  { background-color: var(--danger-dim); }
+
+@utility text-ink    { color: var(--text); }
+@utility text-ink-2  { color: var(--text-secondary); }
+@utility text-dim    { color: var(--muted); }
+
+@utility border-stroke      { border-color: var(--border); }
+@utility border-stroke-soft { border-color: var(--border-light); }
+
+@utility divide-stroke { & > * + * { border-color: var(--border); } }
+
+@utility shadow-xs   { box-shadow: var(--shadow-xs); }
+@utility shadow-card { box-shadow: var(--shadow-sm); }
+@utility shadow-hover{ box-shadow: var(--shadow-md); }
+@utility shadow-popup{ box-shadow: var(--shadow-lg); }
+
+@utility rounded-card { border-radius: 14px; }
+@utility rounded-btn  { border-radius: 9px; }
+
+/* ─── Base ─── */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 200ms ease, color 200ms ease;
+  }
+
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background-color: var(--border); border-radius: 6px; }
+  ::-webkit-scrollbar-thumb:hover { background-color: var(--muted); }
+}
