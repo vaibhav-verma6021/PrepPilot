@@ -14,6 +14,7 @@ exports.analyzeResume = async (req, res, next) => {
     const resume = await Resume.create({
       userId: req.user.id,
       filename: req.file.originalname,
+      resumeText,
       score: analysis.score,
       missingSkills: analysis.missingSkills || [],
       weakSections: analysis.weakSections || [],

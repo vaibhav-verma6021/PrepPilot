@@ -39,4 +39,32 @@ ${jobDescription}`;
   return parseGeminiJSON(text);
 };
 
-module.exports = { analyzeResume, analyzeJobMatch };
+const chatWithPlacementBuddy = async (company, resumeText, history, newMessage) => {
+  const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+
+  const systemContext = `You are a placement prep assistant for software engineering interviews. The user is targeting ${company}. Their resume:\n${resumeText}\n\nAnswer their questions specifically using this context. Be concise, practical, and helpful.`;
+
+  const geminiHistory = [];
+  for (let i = 0; i < history.length; i++) {
+    const msg = history[i];
+    let text = msg.message;
+    if (i === 0 && msg.role === 'user') {
+      text = `${systemContext}\n\nUser question: ${text}`;
+    }
+    geminiHistory.push({
+      role: msg.role === 'assistant' ? 'model' : 'user',
+      parts: [{ text }],
+    });
+  }
+
+  const chat = model.startChat({ history: geminiHistory });
+
+  const messageToSend = history.length === 0
+    ? `${systemContext}\n\nUser question: ${newMessage}`
+    : newMessage;
+
+  const result = await chat.sendMessage(messageToSend);
+  return result.response.text().trim();
+};
+
+module.exports = { analyzeResume, analyzeJobMatch, chatWithPlacementBuddy };

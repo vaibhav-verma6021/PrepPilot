@@ -14,6 +14,7 @@ import ResumeAnalyzer from './pages/ResumeAnalyzer'
 import JobMatch from './pages/JobMatch'
 import CompanyPrep from './pages/CompanyPrep'
 import DailyGoals from './pages/DailyGoals'
+import PlacementBuddy from './pages/PlacementBuddy'
 
 function ProtectedLayout() {
   const { isAuthenticated } = useAuth()
@@ -57,6 +58,7 @@ export default function App() {
                 <Route path="/jobmatch"  element={<JobMatch />} />
                 <Route path="/companies" element={<CompanyPrep />} />
                 <Route path="/goals"     element={<DailyGoals />} />
+                <Route path="/buddy"    element={<PlacementBuddy />} />
               </Route>
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>

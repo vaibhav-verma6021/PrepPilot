@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import {
   LayoutDashboard, Code2, FileText, Briefcase,
-  Building2, Target, Sun, Moon, Send, ChevronLeft, ChevronRight
+  Building2, Target, Bot, Sun, Moon, Send, ChevronLeft, ChevronRight
 } from 'lucide-react'
 import { useTheme } from '../context/ThemeContext'
 import { cn } from '../lib/utils'
@@ -14,6 +14,7 @@ const navItems = [
   { to: '/jobmatch',  label: 'Job Match',        icon: <Briefcase size={18} /> },
   { to: '/companies', label: 'Company Prep',     icon: <Building2 size={18} /> },
   { to: '/goals',     label: 'Daily Goals',      icon: <Target size={18} /> },
+  { to: '/buddy',     label: 'Placement Buddy',  icon: <Bot size={18} /> },
 ]
 
 export default function Sidebar() {

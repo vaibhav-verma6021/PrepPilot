@@ -32,7 +32,8 @@ app.use('/api/resume', require('./routes/resume'));
 app.use('/api/jobmatch', require('./routes/jobmatch'));
 app.use('/api/goals', require('./routes/goals'));
 app.use('/api/companies', require('./routes/companies'));
-app.use('/api/dashboard', require('./routes/dashboard'));
+app.use('/api/dashboard',        require('./routes/dashboard'));
+app.use('/api/placement-buddy',  require('./routes/placementBuddy'));
 
 // 404
 app.use((req, res) => {
